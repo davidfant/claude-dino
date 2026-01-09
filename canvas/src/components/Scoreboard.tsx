@@ -16,16 +16,16 @@ const Scoreboard: React.FC<ScoreboardProps> = ({
     <Box flexDirection="column" alignItems="flex-end">
       <Box>
         <Text dimColor>HI </Text>
-        <Text bold color="cyan">
+        <Text bold color="magenta">
           {String(highScore).padStart(5, "0")}
         </Text>
       </Box>
       <Box>
+        {isNewHighScore && <Text color="green">🌟 </Text>}
         <Text dimColor>SC </Text>
         <Text bold color={isNewHighScore ? "green" : "cyan"}>
           {String(currentScore).padStart(5, "0")}
         </Text>
-        {isNewHighScore && <Text color="green"> 🌟</Text>}
       </Box>
     </Box>
   );

@@ -23,8 +23,8 @@ create_pane() {
     return 0
   fi
   
-  # Create new pane (28 lines fixed height below)
-  tmux split-window -v -l 28 -P -F "#{pane_id}" "$command"
+  # Create new pane (40 lines fixed height below)
+  tmux split-window -v -l 40 -P -F "#{pane_id}" "$command"
   
   # Set pane title (requires tmux 3.0+)
   tmux select-pane -T "$pane_name"

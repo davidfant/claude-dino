@@ -1,0 +1,19 @@
+{
+  "name": "claude-dino",
+  "owner": {
+    "name": "David Fant",
+    "email": "david@fant.io"
+  },
+  "metadata": {
+    "description": "Claude Code plugin marketplace for playing Claude Dino"
+  },
+  "plugins": [
+    {
+      "name": "dino",
+      "source": "./canvas",
+      "description": "Play Claude Dino while waiting for Claude to finish",
+      "version": "0.1.0",
+      "strict": false
+    }
+  ]
+}

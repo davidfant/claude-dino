@@ -1,22 +1,36 @@
-Start the Dino runner game in a tmux split pane.
+---
+description: Start the Dino runner game in a tmux split pane
+---
 
-Launches the Claude Dino canvas in a new tmux pane below your current session (30% height). The game animates based on Claude's real-time activity and allows you to play during idle moments.
+# Start Dino Game
 
-Usage: `/dino-start`
+Launch the Claude Dino canvas game in a new tmux pane below your current session.
 
-Requirements:
-- Must be running inside a tmux session
-- Bun runtime must be installed
+## Your Task
+
+Execute the following bash command:
+
+```bash
+cd ~/.claude/plugins/claude-dino && ./scripts/dino-boot.sh "$SESSION_ID"
+```
+
+## What This Does
 
 The game will:
-- Display in a split pane below your current session
+
+- Display in a split pane below (40 lines tall)
 - Run continuously while Claude is active
-- Animate the dino based on Claude's status (thinking, busy, idle)
-- Track your high scores across sessions
+- Animate based on Claude's status (thinking, busy, idle)
+- Track high scores across sessions
 
-Controls:
-- SPACE, ENTER, or UP ARROW: Jump / Restart after game over
+## Controls
 
----exec
-./scripts/dino-boot.sh "$SESSION_ID"
----
+- **SPACE**, **ENTER**, or **UP ARROW**: Jump / Restart after game over
+
+## Requirements
+
+- Must be running inside a tmux session
+- Bun runtime must be installed
+- Canvas must be built
+
+After executing, inform the user the game has started successfully.
