@@ -1,5 +1,5 @@
 {
-  "name": "claude-dino-canvas",
+  "name": "@claude-dino/dino",
   "version": "0.1.0",
   "type": "module",
   "main": "dist/index.js",

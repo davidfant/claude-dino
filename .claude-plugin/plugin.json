@@ -10,10 +10,10 @@
     "bun": ">=1.0"
   },
   "commands": [
-    "commands/dino-start.md",
-    "commands/dino-stop.md",
-    "commands/dino-status.md",
-    "commands/dino-reset.md"
+    "canvas/commands/dino-start.md",
+    "canvas/commands/dino-stop.md",
+    "canvas/commands/dino-status.md",
+    "canvas/commands/dino-reset.md"
   ],
   "hooks": "hooks/hooks.json"
 }

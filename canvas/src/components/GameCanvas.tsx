@@ -123,11 +123,7 @@ const GameCanvas: React.FC<GameCanvasProps> = ({
         <Text bold color="gray">
           CLAUDE DINO
         </Text>
-        <Scoreboard
-          currentScore={gameState.score}
-          highScore={highScore}
-          isNewHighScore={isNewHighScore}
-        />
+        <Scoreboard currentScore={gameState.score} highScore={highScore} />
       </Box>
 
       {/* Game area - simplified without absolute positioning */}
@@ -262,7 +258,10 @@ const GameCanvas: React.FC<GameCanvasProps> = ({
         </Box>
 
         <Box>
-          <Ground groundDistance={engine.getGroundDistance()} width={width - 4} />
+          <Ground
+            groundDistance={engine.getGroundDistance()}
+            width={width - 4}
+          />
         </Box>
 
         {/* Game Over overlay */}

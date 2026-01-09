@@ -18,7 +18,7 @@ cd ~/.claude/plugins/claude-dino && ./scripts/dino-boot.sh "$SESSION_ID"
 
 The game will:
 
-- Display in a split pane below (40 lines tall)
+- Display in a split pane below (42 lines tall)
 - Run continuously while Claude is active
 - Animate based on Claude's status (thinking, busy, idle)
 - Track high scores across sessions

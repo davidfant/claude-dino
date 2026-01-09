@@ -4,14 +4,9 @@ import React from "react";
 interface ScoreboardProps {
   currentScore: number;
   highScore: number;
-  isNewHighScore: boolean;
 }
 
-const Scoreboard: React.FC<ScoreboardProps> = ({
-  currentScore,
-  highScore,
-  isNewHighScore,
-}) => {
+const Scoreboard: React.FC<ScoreboardProps> = ({ currentScore, highScore }) => {
   return (
     <Box flexDirection="column" alignItems="flex-end">
       <Box>
@@ -21,9 +16,8 @@ const Scoreboard: React.FC<ScoreboardProps> = ({
         </Text>
       </Box>
       <Box>
-        {isNewHighScore && <Text color="green">🌟 </Text>}
         <Text dimColor>SC </Text>
-        <Text bold color={isNewHighScore ? "green" : "cyan"}>
+        <Text bold color="cyan">
           {String(currentScore).padStart(5, "0")}
         </Text>
       </Box>
