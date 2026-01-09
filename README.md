@@ -2,9 +2,7 @@
 
 A fun Chrome Dino-style game that runs in your terminal while using Claude Code. Jump over obstacles and rack up your high score!
 
-**Note:** This is a proof of concept and is unsupported.
-
-![Claude Dino Demo](assets/claude-dino.mp4)
+https://github.com/user-attachments/assets/8e4a0218-0803-47fe-889e-ebdc2a6192b0
 
 ## Requirements
 
