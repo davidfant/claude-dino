@@ -1,0 +1,19 @@
+{
+  "name": "claude-dino",
+  "version": "0.1.0",
+  "description": "A tmux-based Dino runner game that visualizes Claude's activity",
+  "author": "Claude Dino Team",
+  "repository": "https://github.com/davidfant/claude-dino",
+  "license": "MIT",
+  "dependencies": {
+    "tmux": ">=3.0",
+    "bun": ">=1.0"
+  },
+  "commands": [
+    "commands/dino-start.md",
+    "commands/dino-stop.md",
+    "commands/dino-status.md",
+    "commands/dino-reset.md"
+  ],
+  "hooks": "hooks/hooks.json"
+}

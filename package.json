@@ -1,0 +1,17 @@
+{
+  "name": "claude-dino",
+  "version": "0.1.0",
+  "description": "A tmux-based Dino runner game that visualizes Claude's activity",
+  "type": "module",
+  "author": "Claude Dino Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/davidfant/claude-dino"
+  },
+  "scripts": {
+    "install-canvas": "cd canvas && bun install",
+    "build-canvas": "cd canvas && bun run build",
+    "test-canvas": "cd canvas && bun run start test-session"
+  }
+}

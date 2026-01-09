@@ -1,0 +1,22 @@
+{
+  "name": "claude-dino-canvas",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "bun build src/index.tsx --outdir dist --target bun && cp node_modules/yoga-wasm-web/dist/yoga.wasm dist/",
+    "start": "bun run dist/index.js",
+    "dev": "bun run src/index.tsx"
+  },
+  "dependencies": {
+    "ink": "^5.0.1",
+    "react": "^18.3.1",
+    "yoga-wasm-web": "^0.3.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.5",
+    "@types/react": "^18.3.18",
+    "react-devtools-core": "^7.0.1",
+    "typescript": "^5.7.3"
+  }
+}

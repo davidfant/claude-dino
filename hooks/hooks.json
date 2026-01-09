@@ -1,0 +1,9 @@
+{
+  "UserPromptSubmit": "scripts/hooks/user-prompt.sh",
+  "PreToolUse": "scripts/hooks/pre-tool-use.sh",
+  "PostToolUse": "scripts/hooks/post-tool-use.sh",
+  "Stop": "scripts/hooks/stop.sh",
+  "PermissionRequest": "scripts/hooks/permission-request.sh",
+  "SessionStart": "scripts/hooks/session-start.sh",
+  "SessionEnd": "scripts/hooks/session-end.sh"
+}
