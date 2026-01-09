@@ -1,88 +1,50 @@
-# Claude Dino Canvas
+# Claude Dino
 
-A Chrome Dino-style runner game that runs in your terminal alongside Claude Code sessions. Built with Ink, React, and Bun.
+A fun Chrome Dino-style game that runs in your terminal while using Claude Code. Jump over obstacles and rack up your high score!
 
-## Features
+**Note:** This is a proof of concept and is unsupported.
 
-- 🦖 Full Dino runner game with smooth jump physics and collision detection
-- 🎮 Play during Claude's idle time or whenever you want
-- 📊 High score tracking across sessions
-- 🎨 Animated ASCII art with scrolling ground
-- ⚡ Real-time synchronization with Claude's activity
-- 🖥️ Runs in a tmux split pane below your main session
+![Claude Dino Demo](assets/claude-dino.mp4)
 
 ## Requirements
 
-- **tmux** >= 3.0
-- **bun** >= 1.0
-- **Claude Code** CLI
+- [Bun](https://bun.sh) — used to run skill tools
+- [tmux](https://github.com/tmux/tmux) — game spawns in a split pane
 
 ## Installation
 
-1. Clone or copy the plugin to `~/.claude/plugins/`:
+Add this repository as a marketplace in Claude Code:
+
+```
+/plugin marketplace add davidfant/claude-dino
+```
+
+Then install the dino plugin:
+
+```
+/plugin install dino@claude-dino
+```
+
+## How to Play
+
+**Important:** The game requires Claude Code to be running inside a tmux session. Start tmux first:
 
 ```bash
-ln -s /path/to/claude-dino ~/.claude/plugins/claude-dino
+tmux
+claude
 ```
 
-2. Install canvas dependencies:
-
-```bash
-cd ~/.claude/plugins/claude-dino/canvas
-bun install
-bun run build
-```
-
-3. Restart Claude Code to load the plugin.
-
-## Usage
-
-### Starting the Game
-
-From within a Claude Code session (in tmux):
+Then start the game with:
 
 ```
-/dino-start
+/dino:start
 ```
 
-This creates a split pane below (30% height) with the game running.
+Reset high scores with:
 
-### Controls
-
-- **SPACE**, **ENTER**, or **UP ARROW**: Jump / Restart after game over
-- The game runs continuously while you work with Claude
-
-### Other Commands
-
-- `/dino-stop` - Stop the game and close the pane
-- `/dino-status` - Check if game is running
-- `/dino-reset` - Reset high scores
-
-## How It Works
-
-1. **Hooks**: Plugin hooks capture Claude events (prompts, tool use, etc.)
-2. **State Files**: Hooks write JSON state to `~/.claude/dino-state/<session-id>/`
-3. **Canvas**: Bun process polls state files and updates game animation
-4. **tmux**: Game runs in a persistent split pane below your session
-
-## Development
-
-```bash
-# Test the canvas standalone
-cd canvas
-bun run start test-session
-
-# Build after changes
-bun run build
 ```
-
-## Architecture
-
-- **Canvas**: Ink + React for terminal UI
-- **Game Engine**: 60 FPS game loop with parabolic jump physics
-- **State Management**: JSON file-based IPC
-- **Hooks**: Shell scripts triggered by Claude events
-- **Display**: tmux split pane integration
+/dino:reset
+```
 
 ## License
 

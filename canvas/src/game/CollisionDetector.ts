@@ -7,7 +7,7 @@ export class CollisionDetector {
   private static readonly DINO_HEIGHT = 9;
 
   // Collision margin for forgiveness (higher = more forgiving)
-  private static readonly COLLISION_MARGIN = 3;
+  private static readonly COLLISION_MARGIN = 4;
 
   static checkCollisionWithMargin(
     gameState: GameState,

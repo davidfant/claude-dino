@@ -56,7 +56,7 @@ export class GameEngine {
 
       // Adjust obstacle difficulty every 100 points
       if (this.gameState.score % 100 === 0) {
-        this.obstacleGenerator.adjustDifficulty(this.gameState.score);
+        this.obstacleGenerator.adjustDifficulty(this.gameState.score, this.scrollSpeed);
       }
     }
 
