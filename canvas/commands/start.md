@@ -11,7 +11,7 @@ Launch the Claude Dino canvas game in a new tmux pane below your current session
 Execute the following bash command:
 
 ```bash
-cd ~/.claude/plugins/claude-dino && ./scripts/dino-boot.sh "$SESSION_ID"
+cd ~/.claude/plugins/claude-dino && ./scripts/dino-boot.sh "${SESSION_ID:-default}"
 ```
 
 ## What This Does
