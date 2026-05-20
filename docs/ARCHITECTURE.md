@@ -92,7 +92,7 @@ claude-dino/
 ├── .claude-plugin/
 │   └── plugin.json          # Plugin registration
 ├── canvas/
-│   ├── commands/             # Slash command definitions
+│   ├── commands/            # Slash command definitions
 │   ├── src/
 │   │   ├── components/      # React UI components
 │   │   ├── game/            # Game logic (engine, collision, obstacles)
