@@ -3,24 +3,36 @@ set -euo pipefail
 
 STATE_DIR="$HOME/.claude/dino-state"
 
+json_escape() {
+  local value="$1"
+  value=${value//\\/\\\\}
+  value=${value//\"/\\\"}
+  value=${value//$'\n'/\\n}
+  value=${value//$'\r'/\\r}
+  value=${value//$'\t'/\\t}
+  printf '%s' "$value"
+}
+
 write_state() {
   local session_id="$1"
   local json="$2"
-  
+
   mkdir -p "$STATE_DIR/$session_id"
-  
+
   # Atomic write using temp file + mv
-  echo "$json" > "$STATE_DIR/$session_id/state.json.tmp"
+  printf '%s\n' "$json" > "$STATE_DIR/$session_id/state.json.tmp"
   mv "$STATE_DIR/$session_id/state.json.tmp" "$STATE_DIR/$session_id/state.json"
 }
 
 read_state() {
   local session_id="$1"
-  
+
   if [[ -f "$STATE_DIR/$session_id/state.json" ]]; then
     cat "$STATE_DIR/$session_id/state.json"
   else
-    echo '{"status":"idle","sessionId":"'"$session_id"'"}'
+    local escaped_session_id
+    escaped_session_id="$(json_escape "$session_id")"
+    printf '{"status":"idle","sessionId":"%s"}\n' "$escaped_session_id"
   fi
 }
 

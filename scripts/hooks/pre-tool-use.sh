@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-PLUGIN_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
-INPUT=$(cat)
-SESSION_ID=$(echo "$INPUT" | grep -o '"session_id":"[^"]*"' | cut -d'"' -f4)
-TOOL_NAME=$(echo "$INPUT" | grep -o '"tool_name":"[^"]*"' | cut -d'"' -f4)
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/common.sh"
 
-"$PLUGIN_DIR/scripts/utils/state-manager.sh" write "$SESSION_ID" '{"status":"busy","tool":"'"$TOOL_NAME"'","sessionId":"'"$SESSION_ID"'"}'
+INPUT="$(read_hook_input)"
+SESSION_ID="$(json_string_field "$INPUT" session_id)"
+TOOL_NAME="$(json_string_field "$INPUT" tool_name)"
+
+write_dino_state "$SESSION_ID" "busy" "$TOOL_NAME"
