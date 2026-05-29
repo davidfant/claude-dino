@@ -2,7 +2,11 @@
 set -euo pipefail
 
 PLUGIN_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
-INPUT=$(cat)
-SESSION_ID=$(echo "$INPUT" | grep -o '"session_id":"[^"]*"' | cut -d'"' -f4)
+source "$PLUGIN_DIR/scripts/utils/hook-json.sh"
 
-"$PLUGIN_DIR/scripts/utils/state-manager.sh" write "$SESSION_ID" '{"status":"thinking","sessionId":"'"$SESSION_ID"'"}'
+INPUT=$(cat)
+SESSION_ID=$(extract_json_string_field "session_id" "$INPUT")
+SESSION_ID=${SESSION_ID:-default}
+ESCAPED_SESSION_ID=$(json_escape "$SESSION_ID")
+
+"$PLUGIN_DIR/scripts/utils/state-manager.sh" write "$SESSION_ID" '{"status":"thinking","sessionId":"'"$ESCAPED_SESSION_ID"'"}'
