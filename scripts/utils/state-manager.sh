@@ -2,6 +2,8 @@
 set -euo pipefail
 
 STATE_DIR="$HOME/.claude/dino-state"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/hook-json.sh"
 
 write_state() {
   local session_id="$1"
@@ -20,7 +22,9 @@ read_state() {
   if [[ -f "$STATE_DIR/$session_id/state.json" ]]; then
     cat "$STATE_DIR/$session_id/state.json"
   else
-    echo '{"status":"idle","sessionId":"'"$session_id"'"}'
+    local escaped_session_id
+    escaped_session_id=$(json_escape "$session_id")
+    echo '{"status":"idle","sessionId":"'"$escaped_session_id"'"}'
   fi
 }
 
