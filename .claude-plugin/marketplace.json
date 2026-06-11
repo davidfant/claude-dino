@@ -10,7 +10,7 @@
   "plugins": [
     {
       "name": "dino",
-      "source": "./canvas",
+      "source": "./",
       "description": "Play Claude Dino while waiting for Claude to finish",
       "version": "0.1.0",
       "strict": false
