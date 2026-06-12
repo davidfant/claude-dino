@@ -9,6 +9,6 @@
     "tmux": ">=3.0",
     "bun": ">=1.0"
   },
-  "commands": ["canvas/commands/start.md", "canvas/commands/reset.md"],
-  "hooks": "hooks/hooks.json"
+  "commands": ["./canvas/commands/start.md", "./canvas/commands/reset.md"],
+  "hooks": "./hooks/hooks.json"
 }
