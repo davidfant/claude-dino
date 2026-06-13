@@ -6,6 +6,10 @@ source "$PLUGIN_DIR/scripts/utils/hook-json.sh"
 
 INPUT="$(read_hook_input)"
 SESSION_ID="$(hook_json_field "$INPUT" "session_id")"
+if [[ -z "$SESSION_ID" ]]; then
+  exit 0
+fi
+
 STATE_JSON="$(hook_state_json "$SESSION_ID" "idle")"
 
 mkdir -p "$HOME/.claude/dino-state/$SESSION_ID"
