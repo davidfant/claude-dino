@@ -2,8 +2,11 @@
 set -euo pipefail
 
 PLUGIN_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
-INPUT=$(cat)
-SESSION_ID=$(echo "$INPUT" | grep -o '"session_id":"[^"]*"' | cut -d'"' -f4)
+source "$PLUGIN_DIR/scripts/utils/hook-json.sh"
+
+INPUT="$(read_hook_input)"
+SESSION_ID="$(hook_json_field "$INPUT" "session_id")"
+STATE_JSON="$(hook_state_json "$SESSION_ID" "idle")"
 
 mkdir -p "$HOME/.claude/dino-state/$SESSION_ID"
-"$PLUGIN_DIR/scripts/utils/state-manager.sh" write "$SESSION_ID" '{"status":"idle","sessionId":"'"$SESSION_ID"'"}'
+"$PLUGIN_DIR/scripts/utils/state-manager.sh" write "$SESSION_ID" "$STATE_JSON"
