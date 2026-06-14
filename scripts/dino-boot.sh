@@ -4,6 +4,14 @@ set -euo pipefail
 SESSION_ID="${1:-default}"
 PLUGIN_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
+shell_quote() {
+  local value="$1"
+
+  printf "'"
+  printf '%s' "$value" | sed "s/'/'\\\\''/g"
+  printf "'"
+}
+
 # Check if in tmux
 if [[ -z "${TMUX:-}" ]]; then
   echo "Error: Not in a tmux session. Please run tmux first."
@@ -22,7 +30,9 @@ if [[ ! -f "$PLUGIN_DIR/canvas/dist/index.js" ]]; then
 fi
 
 # Create tmux pane with canvas
-CANVAS_CMD="cd $PLUGIN_DIR/canvas && bun run dist/index.js $SESSION_ID"
+CANVAS_DIR="$(shell_quote "$PLUGIN_DIR/canvas")"
+SESSION_ARG="$(shell_quote "$SESSION_ID")"
+CANVAS_CMD="cd $CANVAS_DIR && bun run dist/index.js $SESSION_ARG"
 "$PLUGIN_DIR/scripts/utils/tmux-manager.sh" create "$SESSION_ID" "$CANVAS_CMD"
 
 echo "Dino game started in split pane for session: $SESSION_ID"
