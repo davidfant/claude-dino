@@ -8,7 +8,7 @@ get_pane_id() {
   local pane_name="${PANE_NAME_PREFIX}-${session_id}"
   
   tmux list-panes -a -F "#{pane_id} #{pane_title}" 2>/dev/null | \
-    grep "$pane_name" | \
+    grep -F "$pane_name" | \
     awk '{print $1}' || true
 }
 
