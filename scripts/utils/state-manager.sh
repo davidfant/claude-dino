@@ -10,7 +10,7 @@ write_state() {
   mkdir -p "$STATE_DIR/$session_id"
   
   # Atomic write using temp file + mv
-  echo "$json" > "$STATE_DIR/$session_id/state.json.tmp"
+  printf '%s\n' "$json" > "$STATE_DIR/$session_id/state.json.tmp"
   mv "$STATE_DIR/$session_id/state.json.tmp" "$STATE_DIR/$session_id/state.json"
 }
 
