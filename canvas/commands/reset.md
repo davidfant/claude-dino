@@ -11,7 +11,8 @@ Deletes all saved high scores and state files for the current session.
 Execute the following bash command:
 
 ```bash
-rm -rf ~/.claude/dino-state/"$SESSION_ID" && echo "High scores and state reset for session: $SESSION_ID"
+SESSION_ID="${SESSION_ID:-default}"
+rm -rf "$HOME/.claude/dino-state/$SESSION_ID" && echo "High scores and state reset for session: $SESSION_ID"
 ```
 
 ## What This Deletes
