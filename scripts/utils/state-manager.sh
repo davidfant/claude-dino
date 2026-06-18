@@ -20,7 +20,15 @@ read_state() {
   if [[ -f "$STATE_DIR/$session_id/state.json" ]]; then
     cat "$STATE_DIR/$session_id/state.json"
   else
-    echo '{"status":"idle","sessionId":"'"$session_id"'"}'
+    python3 -c '
+import json
+import sys
+
+session_id = sys.argv[1]
+state = {"status": "idle", "sessionId": session_id}
+
+print(json.dumps(state, separators=(",", ":")))
+' "$session_id"
   fi
 }
 
