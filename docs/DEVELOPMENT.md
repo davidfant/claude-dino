@@ -54,7 +54,7 @@ Test individual hooks:
 
 ```bash
 echo '{"session_id":"test","tool_name":"Write"}' | ./scripts/hooks/pre-tool-use.sh
-cat ~/.claude/dino-state/test/state.json
+./scripts/utils/state-manager.sh read test
 ```
 
 ### Debugging
@@ -88,7 +88,18 @@ Edit `canvas/src/game/GameEngine.ts`:
 2. Register in `hooks/hooks.json`:
    ```json
    {
-     "MyHookName": "scripts/hooks/my-hook.sh"
+     "hooks": {
+       "MyHookName": [
+         {
+           "hooks": [
+             {
+               "type": "command",
+               "command": "\"${CLAUDE_PLUGIN_ROOT}\"/scripts/hooks/my-hook.sh"
+             }
+           ]
+         }
+       ]
+     }
    }
    ```
 
