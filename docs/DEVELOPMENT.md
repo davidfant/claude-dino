@@ -54,8 +54,10 @@ Test individual hooks:
 
 ```bash
 echo '{"session_id":"test","tool_name":"Write"}' | ./scripts/hooks/pre-tool-use.sh
-cat ~/.claude/dino-state/test/state.json
+./scripts/utils/state-manager.sh read test
 ```
+
+Hook scripts parse payloads and serialize state through `scripts/utils/hook-json.sh`, so quoted tool names and session IDs remain valid JSON.
 
 ### Debugging
 
@@ -123,7 +125,7 @@ This creates:
 
 1. Verify hooks are executable: `chmod +x scripts/**/*.sh`
 2. Test hook manually (see above)
-3. Check plugin is loaded: `/help` should show `/dino-*` commands
+3. Check plugin is loaded: `/help` should show `/dino:start` and `/dino:reset`
 
 ### State Not Updating
 
