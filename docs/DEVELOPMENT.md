@@ -54,7 +54,7 @@ Test individual hooks:
 
 ```bash
 echo '{"session_id":"test","tool_name":"Write"}' | ./scripts/hooks/pre-tool-use.sh
-cat ~/.claude/dino-state/test/state.json
+python3 -m json.tool ~/.claude/dino-state/test/state.json
 ```
 
 ### Debugging
@@ -88,7 +88,16 @@ Edit `canvas/src/game/GameEngine.ts`:
 2. Register in `hooks/hooks.json`:
    ```json
    {
-     "MyHookName": "scripts/hooks/my-hook.sh"
+     "MyHookName": [
+       {
+         "hooks": [
+           {
+             "type": "command",
+             "command": "${CLAUDE_PLUGIN_ROOT}/scripts/hooks/my-hook.sh"
+           }
+         ]
+       }
+     ]
    }
    ```
 
@@ -123,7 +132,7 @@ This creates:
 
 1. Verify hooks are executable: `chmod +x scripts/**/*.sh`
 2. Test hook manually (see above)
-3. Check plugin is loaded: `/help` should show `/dino-*` commands
+3. Check plugin is loaded: `/help` should show `/dino:start` and `/dino:reset`
 
 ### State Not Updating
 
