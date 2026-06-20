@@ -31,7 +31,7 @@ Claude Dino Canvas is a terminal-based game that visualizes Claude Code's activi
 ### 4. tmux Integration
 - **Purpose**: Display game in split pane
 - **Manager**: `scripts/utils/tmux-manager.sh`
-- **Behavior**: Creates 30% height pane below, idempotent
+- **Behavior**: Creates a 42-line pane below, idempotent
 
 ## Data Flow
 
