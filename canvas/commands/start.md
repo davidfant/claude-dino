@@ -11,7 +11,7 @@ Launch the Claude Dino canvas game in a new tmux pane below your current session
 Execute the following bash command:
 
 ```bash
-cd ~/.claude/plugins/claude-dino && ./scripts/dino-boot.sh "$SESSION_ID"
+"${CLAUDE_PLUGIN_ROOT}/scripts/dino-boot.sh" "$SESSION_ID"
 ```
 
 ## What This Does
@@ -31,6 +31,6 @@ The game will:
 
 - Must be running inside a tmux session
 - Bun runtime must be installed
-- Canvas must be built
+- Canvas builds automatically on first start
 
 After executing, inform the user the game has started successfully.
