@@ -20,7 +20,12 @@ read_state() {
   if [[ -f "$STATE_DIR/$session_id/state.json" ]]; then
     cat "$STATE_DIR/$session_id/state.json"
   else
-    echo '{"status":"idle","sessionId":"'"$session_id"'"}'
+    SESSION_ID="$session_id" python3 <<'PY'
+import json
+import os
+
+print(json.dumps({"status": "idle", "sessionId": os.environ["SESSION_ID"]}, separators=(",", ":")))
+PY
   fi
 }
 
