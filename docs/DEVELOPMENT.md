@@ -57,6 +57,10 @@ echo '{"session_id":"test","tool_name":"Write"}' | ./scripts/hooks/pre-tool-use.
 cat ~/.claude/dino-state/test/state.json
 ```
 
+Hook payload parsing and state JSON serialization are centralized in
+`scripts/utils/hook-json.sh`; add new hooks through that helper so escaped JSON
+values and unusual session IDs remain valid.
+
 ### Debugging
 
 Add console.log statements in canvas code - they'll appear in the tmux pane.
@@ -123,7 +127,7 @@ This creates:
 
 1. Verify hooks are executable: `chmod +x scripts/**/*.sh`
 2. Test hook manually (see above)
-3. Check plugin is loaded: `/help` should show `/dino-*` commands
+3. Check plugin is loaded: `/help` should show `/dino:*` commands
 
 ### State Not Updating
 
