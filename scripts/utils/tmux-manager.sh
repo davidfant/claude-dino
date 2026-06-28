@@ -6,10 +6,16 @@ PANE_NAME_PREFIX="dino-canvas"
 get_pane_id() {
   local session_id="$1"
   local pane_name="${PANE_NAME_PREFIX}-${session_id}"
-  
+
   tmux list-panes -a -F "#{pane_id} #{pane_title}" 2>/dev/null | \
-    grep "$pane_name" | \
-    awk '{print $1}' || true
+    awk -v title="$pane_name" '{
+      id = $1
+      sub(/^[^ ]+ /, "")
+      if ($0 == title) {
+        print id
+        exit
+      }
+    }' || true
 }
 
 create_pane() {
