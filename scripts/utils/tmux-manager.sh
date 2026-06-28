@@ -6,35 +6,37 @@ PANE_NAME_PREFIX="dino-canvas"
 get_pane_id() {
   local session_id="$1"
   local pane_name="${PANE_NAME_PREFIX}-${session_id}"
-  
-  tmux list-panes -a -F "#{pane_id} #{pane_title}" 2>/dev/null | \
-    grep "$pane_name" | \
-    awk '{print $1}' || true
+  local delimiter
+  delimiter="$(printf '\t')"
+
+  tmux list-panes -a -F "#{pane_id}${delimiter}#{pane_title}" 2>/dev/null | \
+    awk -F "$delimiter" -v pane_name="$pane_name" '$2 == pane_name { print $1; exit }' || true
 }
 
 create_pane() {
   local session_id="$1"
   local command="$2"
   local pane_name="${PANE_NAME_PREFIX}-${session_id}"
-  
+  local pane_id
+
   # Check if pane already exists
   if [[ -n "$(get_pane_id "$session_id")" ]]; then
     echo "Dino pane already exists for session: $session_id"
     return 0
   fi
-  
+
   # Create new pane (42 lines fixed height below)
-  tmux split-window -v -l 42 -P -F "#{pane_id}" "$command"
-  
+  pane_id="$(tmux split-window -v -l 42 -P -F "#{pane_id}" "$command")"
+
   # Set pane title (requires tmux 3.0+)
-  tmux select-pane -T "$pane_name"
+  tmux select-pane -t "$pane_id" -T "$pane_name"
 }
 
 kill_pane() {
   local session_id="$1"
   local pane_id
   pane_id="$(get_pane_id "$session_id")"
-  
+
   if [[ -n "$pane_id" ]]; then
     tmux kill-pane -t "$pane_id"
     echo "Killed dino pane: $pane_id"
@@ -47,7 +49,7 @@ check_pane() {
   local session_id="$1"
   local pane_id
   pane_id="$(get_pane_id "$session_id")"
-  
+
   if [[ -n "$pane_id" ]]; then
     echo "Dino pane is running: $pane_id"
   else
