@@ -7,9 +7,8 @@ get_pane_id() {
   local session_id="$1"
   local pane_name="${PANE_NAME_PREFIX}-${session_id}"
   
-  tmux list-panes -a -F "#{pane_id} #{pane_title}" 2>/dev/null | \
-    grep "$pane_name" | \
-    awk '{print $1}' || true
+  tmux list-panes -a -F "#{pane_id}	#{pane_title}" 2>/dev/null | \
+    awk -F '	' -v pane_name="$pane_name" '$2 == pane_name { print $1; exit }' || true
 }
 
 create_pane() {
