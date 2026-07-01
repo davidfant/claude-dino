@@ -88,7 +88,16 @@ Edit `canvas/src/game/GameEngine.ts`:
 2. Register in `hooks/hooks.json`:
    ```json
    {
-     "MyHookName": "scripts/hooks/my-hook.sh"
+     "MyHookName": [
+       {
+         "hooks": [
+           {
+             "type": "command",
+             "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/hooks/my-hook.sh\""
+           }
+         ]
+       }
+     ]
    }
    ```
 
@@ -117,17 +126,17 @@ This creates:
 
 1. Check tmux is running: `echo $TMUX`
 2. Check bun is installed: `bun --version`
-3. Check build exists: `ls canvas/dist/index.js`
+3. Check build exists: `test -f canvas/dist/index.js`
 
 ### Hooks Not Firing
 
 1. Verify hooks are executable: `chmod +x scripts/**/*.sh`
 2. Test hook manually (see above)
-3. Check plugin is loaded: `/help` should show `/dino-*` commands
+3. Check plugin is loaded: `/help` should show `/dino:start` and `/dino:reset`
 
 ### State Not Updating
 
-1. Check state file exists: `ls ~/.claude/dino-state/<session-id>/`
+1. Check state file exists: `test -f ~/.claude/dino-state/<session-id>/state.json`
 2. Verify atomic writes working (no .tmp files lingering)
 3. Check canvas is polling (add console.log to StatePoller)
 
