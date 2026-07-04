@@ -4,6 +4,7 @@
   "description": "A tmux-based Dino runner game that visualizes Claude's activity",
   "author": "Claude Dino Team",
   "repository": "https://github.com/davidfant/claude-dino",
+  "source": ".",
   "license": "MIT",
   "dependencies": {
     "tmux": ">=3.0",
