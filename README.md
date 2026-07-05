@@ -44,6 +44,8 @@ Reset high scores with:
 /dino:reset
 ```
 
+The installed plugin uses `${CLAUDE_PLUGIN_ROOT}` to launch scripts from the repository root, so the commands and hooks work regardless of the local plugin install path.
+
 ## License
 
 MIT
