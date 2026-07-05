@@ -44,6 +44,12 @@ Reset high scores with:
 /dino:reset
 ```
 
+## Plugin layout
+
+- Plugin commands live in `canvas/commands` and are exposed as `/dino:start` and `/dino:reset`.
+- Claude Code hooks are registered from `hooks/hooks.json` and execute scripts relative to `${CLAUDE_PLUGIN_ROOT}`.
+- Runtime state is stored under `$HOME/.claude/dino-state/<session id>`.
+
 ## License
 
 MIT
