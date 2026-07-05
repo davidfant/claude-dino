@@ -1,26 +1,28 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+PLUGIN_DIR="${CLAUDE_PLUGIN_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)}"
 STATE_DIR="$HOME/.claude/dino-state"
+source "$PLUGIN_DIR/scripts/utils/hook-json.sh"
 
 write_state() {
   local session_id="$1"
   local json="$2"
-  
+
   mkdir -p "$STATE_DIR/$session_id"
-  
+
   # Atomic write using temp file + mv
-  echo "$json" > "$STATE_DIR/$session_id/state.json.tmp"
+  printf '%s\n' "$json" > "$STATE_DIR/$session_id/state.json.tmp"
   mv "$STATE_DIR/$session_id/state.json.tmp" "$STATE_DIR/$session_id/state.json"
 }
 
 read_state() {
   local session_id="$1"
-  
+
   if [[ -f "$STATE_DIR/$session_id/state.json" ]]; then
     cat "$STATE_DIR/$session_id/state.json"
   else
-    echo '{"status":"idle","sessionId":"'"$session_id"'"}'
+    json_state idle "$session_id"
   fi
 }
 
