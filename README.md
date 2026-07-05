@@ -6,7 +6,7 @@ https://github.com/user-attachments/assets/8e4a0218-0803-47fe-889e-ebdc2a6192b0
 
 ## Requirements
 
-- [Bun](https://bun.sh) — used to run skill tools
+- [Bun](https://bun.sh) — used to build and run the Ink canvas
 - [tmux](https://github.com/tmux/tmux) — game spawns in a split pane
 
 ## Installation
@@ -22,6 +22,9 @@ Then install the dino plugin:
 ```
 /plugin install dino@claude-dino
 ```
+
+The marketplace entry installs this repository root so Claude Code can load the
+commands, hooks, scripts, and canvas assets together.
 
 ## How to Play
 
