@@ -44,6 +44,16 @@ Reset high scores with:
 /dino:reset
 ```
 
+## Plugin Layout
+
+The marketplace entry installs this repository root as the plugin. Claude Code uses:
+
+- `.claude-plugin/plugin.json` for plugin metadata
+- `canvas/commands/start.md` and `canvas/commands/reset.md` for `/dino:start` and `/dino:reset`
+- `hooks/hooks.json` for command hooks that execute scripts through `${CLAUDE_PLUGIN_ROOT}`
+
+The game opens in a fixed 42-line tmux pane below the current Claude Code session.
+
 ## License
 
 MIT
