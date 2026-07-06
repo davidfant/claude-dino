@@ -1,9 +1,13 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-PLUGIN_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
-INPUT=$(cat)
-SESSION_ID=$(echo "$INPUT" | grep -o '"session_id":"[^"]*"' | cut -d'"' -f4)
-TOOL_NAME=$(echo "$INPUT" | grep -o '"tool_name":"[^"]*"' | cut -d'"' -f4)
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/../utils/hook-json.sh"
 
-"$PLUGIN_DIR/scripts/utils/state-manager.sh" write "$SESSION_ID" '{"status":"busy","tool":"'"$TOOL_NAME"'","sessionId":"'"$SESSION_ID"'"}'
+PLUGIN_DIR="$(resolve_plugin_dir)"
+INPUT="$(cat)"
+SESSION_ID="$(printf '%s' "$INPUT" | json_get_field session_id)"
+TOOL_NAME="$(printf '%s' "$INPUT" | json_get_field tool_name)"
+STATE="$(json_state busy "$SESSION_ID" "$TOOL_NAME")"
+
+"$PLUGIN_DIR/scripts/utils/state-manager.sh" write "$SESSION_ID" "$STATE"
