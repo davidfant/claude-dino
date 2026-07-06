@@ -6,7 +6,7 @@ https://github.com/user-attachments/assets/8e4a0218-0803-47fe-889e-ebdc2a6192b0
 
 ## Requirements
 
-- [Bun](https://bun.sh) — used to run skill tools
+- [Bun](https://bun.sh) — used to run and build the canvas
 - [tmux](https://github.com/tmux/tmux) — game spawns in a split pane
 
 ## Installation
@@ -43,6 +43,9 @@ Reset high scores with:
 ```
 /dino:reset
 ```
+
+Claude Code loads `/dino:start` and `/dino:reset` from `canvas/commands/` and
+runs hooks from this plugin root via `${CLAUDE_PLUGIN_ROOT}`.
 
 ## License
 
