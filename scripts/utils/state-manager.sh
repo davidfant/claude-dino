@@ -22,7 +22,7 @@ read_state() {
   local session_id="$1"
   
   if [[ -f "$STATE_DIR/$session_id/state.json" ]]; then
-    < "$STATE_DIR/$session_id/state.json"
+    printf '%s\n' "$(< "$STATE_DIR/$session_id/state.json")"
   else
     state_json "idle" "$session_id"
   fi
