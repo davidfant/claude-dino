@@ -44,6 +44,8 @@ Reset high scores with:
 /dino:reset
 ```
 
+Claude Code runs the plugin from `${CLAUDE_PLUGIN_ROOT}`, with commands in `canvas/commands` and hooks registered through `hooks/hooks.json`.
+
 ## License
 
 MIT
