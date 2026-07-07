@@ -2,16 +2,19 @@
 set -euo pipefail
 
 STATE_DIR="$HOME/.claude/dino-state"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 write_state() {
   local session_id="$1"
   local json="$2"
+  local session_dir="$STATE_DIR/$session_id"
+  local tmp_file
   
-  mkdir -p "$STATE_DIR/$session_id"
+  mkdir -p "$session_dir"
+  tmp_file="$(mktemp "$session_dir/state.json.tmp.XXXXXX")"
   
-  # Atomic write using temp file + mv
-  echo "$json" > "$STATE_DIR/$session_id/state.json.tmp"
-  mv "$STATE_DIR/$session_id/state.json.tmp" "$STATE_DIR/$session_id/state.json"
+  printf '%s\n' "$json" > "$tmp_file"
+  mv "$tmp_file" "$session_dir/state.json"
 }
 
 read_state() {
@@ -20,7 +23,7 @@ read_state() {
   if [[ -f "$STATE_DIR/$session_id/state.json" ]]; then
     cat "$STATE_DIR/$session_id/state.json"
   else
-    echo '{"status":"idle","sessionId":"'"$session_id"'"}'
+    "$SCRIPT_DIR/hook-json.sh" state idle "$session_id"
   fi
 }
 
