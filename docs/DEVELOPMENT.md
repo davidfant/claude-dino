@@ -57,6 +57,8 @@ echo '{"session_id":"test","tool_name":"Write"}' | ./scripts/hooks/pre-tool-use.
 cat ~/.claude/dino-state/test/state.json
 ```
 
+Hook payloads are parsed through `scripts/utils/hook-json.sh`, so quoted tool names and session IDs with spaces are preserved in the generated state JSON.
+
 ### Debugging
 
 Add console.log statements in canvas code - they'll appear in the tmux pane.
@@ -88,7 +90,16 @@ Edit `canvas/src/game/GameEngine.ts`:
 2. Register in `hooks/hooks.json`:
    ```json
    {
-     "MyHookName": "scripts/hooks/my-hook.sh"
+     "MyHookName": [
+       {
+         "hooks": [
+           {
+             "type": "command",
+             "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/hooks/my-hook.sh\""
+           }
+         ]
+       }
+     ]
    }
    ```
 
@@ -118,12 +129,13 @@ This creates:
 1. Check tmux is running: `echo $TMUX`
 2. Check bun is installed: `bun --version`
 3. Check build exists: `ls canvas/dist/index.js`
+4. Confirm the pane title matches `dino-canvas-<session-id>` exactly
 
 ### Hooks Not Firing
 
 1. Verify hooks are executable: `chmod +x scripts/**/*.sh`
 2. Test hook manually (see above)
-3. Check plugin is loaded: `/help` should show `/dino-*` commands
+3. Check plugin is loaded: `/help` should show `/dino:start` and `/dino:reset`
 
 ### State Not Updating
 
