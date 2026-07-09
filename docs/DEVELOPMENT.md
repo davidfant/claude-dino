@@ -57,6 +57,9 @@ echo '{"session_id":"test","tool_name":"Write"}' | ./scripts/hooks/pre-tool-use.
 cat ~/.claude/dino-state/test/state.json
 ```
 
+The plugin registers hooks as command-hook objects in `hooks/hooks.json`; each command uses
+`${CLAUDE_PLUGIN_ROOT}` so installed plugins resolve scripts from the plugin root.
+
 ### Debugging
 
 Add console.log statements in canvas code - they'll appear in the tmux pane.
@@ -88,7 +91,10 @@ Edit `canvas/src/game/GameEngine.ts`:
 2. Register in `hooks/hooks.json`:
    ```json
    {
-     "MyHookName": "scripts/hooks/my-hook.sh"
+     "MyHookName": {
+       "type": "command",
+       "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/hooks/my-hook.sh\""
+     }
    }
    ```
 
@@ -117,13 +123,13 @@ This creates:
 
 1. Check tmux is running: `echo $TMUX`
 2. Check bun is installed: `bun --version`
-3. Check build exists: `ls canvas/dist/index.js`
+3. Check build exists: `test -f canvas/dist/index.js`
 
 ### Hooks Not Firing
 
 1. Verify hooks are executable: `chmod +x scripts/**/*.sh`
 2. Test hook manually (see above)
-3. Check plugin is loaded: `/help` should show `/dino-*` commands
+3. Check plugin is loaded: `/help` should show `/dino:start` and `/dino:reset`
 
 ### State Not Updating
 
