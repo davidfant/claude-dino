@@ -53,8 +53,8 @@ echo '{"status":"busy","tool":"Write","sessionId":"test-session"}' > ~/.claude/d
 Test individual hooks:
 
 ```bash
-echo '{"session_id":"test","tool_name":"Write"}' | ./scripts/hooks/pre-tool-use.sh
-cat ~/.claude/dino-state/test/state.json
+echo '{"session_id":"test session","tool_name":"Write \"quoted\""}' | ./scripts/hooks/pre-tool-use.sh
+./scripts/utils/state-manager.sh read "test session"
 ```
 
 ### Debugging
@@ -88,7 +88,10 @@ Edit `canvas/src/game/GameEngine.ts`:
 2. Register in `hooks/hooks.json`:
    ```json
    {
-     "MyHookName": "scripts/hooks/my-hook.sh"
+     "MyHookName": {
+       "type": "command",
+       "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/hooks/my-hook.sh\""
+     }
    }
    ```
 
@@ -123,7 +126,7 @@ This creates:
 
 1. Verify hooks are executable: `chmod +x scripts/**/*.sh`
 2. Test hook manually (see above)
-3. Check plugin is loaded: `/help` should show `/dino-*` commands
+3. Check plugin is loaded: `/help` should show `/dino:start` and `/dino:reset`
 
 ### State Not Updating
 
@@ -156,3 +159,4 @@ This creates:
 - [ ] Game over + restart works
 - [ ] All hooks update state
 - [ ] Multiple sessions isolated
+- [ ] Session IDs and tool names with spaces or quotes serialize correctly
