@@ -9,13 +9,14 @@ Claude Dino Canvas is a terminal-based game that visualizes Claude Code's activi
 ### 1. Plugin System
 - **Location**: `.claude-plugin/plugin.json`
 - **Purpose**: Registers commands and hooks with Claude Code
-- **Commands**: `/dino-start`, `/dino-stop`, `/dino-status`, `/dino-reset`
-- **Hooks**: 7 event handlers (prompt, tool use, session lifecycle)
+- **Commands**: `/dino:start`, `/dino:reset`
+- **Hooks**: 7 command-hook event handlers (prompt, tool use, session lifecycle)
 
 ### 2. Hooks (Shell Scripts)
 - **Location**: `scripts/hooks/*.sh`
 - **Purpose**: Capture Claude events and write state
 - **Execution**: Non-blocking (<50ms), triggered by Claude Code
+- **Parsing**: Uses `scripts/utils/hook-json.sh` for JSON field extraction and state serialization
 - **Output**: Writes JSON to `~/.claude/dino-state/<session-id>/state.json`
 
 ### 3. Canvas (Ink + React)
@@ -31,7 +32,7 @@ Claude Dino Canvas is a terminal-based game that visualizes Claude Code's activi
 ### 4. tmux Integration
 - **Purpose**: Display game in split pane
 - **Manager**: `scripts/utils/tmux-manager.sh`
-- **Behavior**: Creates 30% height pane below, idempotent
+- **Behavior**: Creates a 42-line pane below, idempotent by exact pane title
 
 ## Data Flow
 
@@ -92,6 +93,7 @@ claude-dino/
 ├── .claude-plugin/
 │   └── plugin.json          # Plugin registration
 ├── canvas/
+│   ├── commands/             # Slash command definitions
 │   ├── src/
 │   │   ├── components/      # React UI components
 │   │   ├── game/            # Game logic (engine, collision, obstacles)
@@ -101,7 +103,6 @@ claude-dino/
 ├── scripts/
 │   ├── hooks/               # Event handlers
 │   └── utils/               # State + tmux management
-├── commands/                # Slash command definitions
 └── hooks/
     └── hooks.json           # Hook registration
 ```
