@@ -85,10 +85,20 @@ Edit `canvas/src/game/GameEngine.ts`:
 ### Adding New Hooks
 
 1. Create script in `scripts/hooks/my-hook.sh`
-2. Register in `hooks/hooks.json`:
+2. Source `scripts/utils/hook-json.sh` from the hook when reading hook payload fields or writing state JSON.
+3. Register in `hooks/hooks.json` with a command hook rooted at `${CLAUDE_PLUGIN_ROOT}`:
    ```json
    {
-     "MyHookName": "scripts/hooks/my-hook.sh"
+     "MyHookName": [
+       {
+         "hooks": [
+           {
+             "type": "command",
+             "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/hooks/my-hook.sh\""
+           }
+         ]
+       }
+     ]
    }
    ```
 
@@ -123,7 +133,7 @@ This creates:
 
 1. Verify hooks are executable: `chmod +x scripts/**/*.sh`
 2. Test hook manually (see above)
-3. Check plugin is loaded: `/help` should show `/dino-*` commands
+3. Check plugin is loaded: `/help` should show `/dino:start` and `/dino:reset`
 
 ### State Not Updating
 
