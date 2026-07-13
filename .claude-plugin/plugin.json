@@ -5,6 +5,7 @@
   "author": "Claude Dino Team",
   "repository": "https://github.com/davidfant/claude-dino",
   "license": "MIT",
+  "source": ".",
   "dependencies": {
     "tmux": ">=3.0",
     "bun": ">=1.0"
