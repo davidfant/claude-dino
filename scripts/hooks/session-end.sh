@@ -1,9 +1,17 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-PLUGIN_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+UTILS_DIR="$(cd "$SCRIPT_DIR/../utils" && pwd)"
+
+. "$UTILS_DIR/hook-json.sh"
+
 INPUT=$(cat)
-SESSION_ID=$(echo "$INPUT" | grep -o '"session_id":"[^"]*"' | cut -d'"' -f4)
+SESSION_ID="$(hook_json_get "$INPUT" "session_id")"
+
+if [[ -z "$SESSION_ID" ]]; then
+  exit 0
+fi
 
 # Optionally clean up the pane
-"$PLUGIN_DIR/scripts/utils/tmux-manager.sh" kill "$SESSION_ID" || true
+"$UTILS_DIR/tmux-manager.sh" kill "$SESSION_ID" || true
