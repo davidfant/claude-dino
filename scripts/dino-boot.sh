@@ -22,7 +22,7 @@ if [[ ! -f "$PLUGIN_DIR/canvas/dist/index.js" ]]; then
 fi
 
 # Create tmux pane with canvas
-CANVAS_CMD="cd $PLUGIN_DIR/canvas && bun run dist/index.js $SESSION_ID"
+printf -v CANVAS_CMD 'cd %q && bun run dist/index.js %q' "$PLUGIN_DIR/canvas" "$SESSION_ID"
 "$PLUGIN_DIR/scripts/utils/tmux-manager.sh" create "$SESSION_ID" "$CANVAS_CMD"
 
 echo "Dino game started in split pane for session: $SESSION_ID"
