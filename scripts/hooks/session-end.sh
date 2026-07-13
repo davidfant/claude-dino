@@ -2,8 +2,10 @@
 set -euo pipefail
 
 PLUGIN_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
-INPUT=$(cat)
-SESSION_ID=$(echo "$INPUT" | grep -o '"session_id":"[^"]*"' | cut -d'"' -f4)
+source "$PLUGIN_DIR/scripts/utils/hook-json.sh"
 
-# Optionally clean up the pane
+read_hook_input
+
+SESSION_ID="$(hook_payload_string "session_id")"
+
 "$PLUGIN_DIR/scripts/utils/tmux-manager.sh" kill "$SESSION_ID" || true
