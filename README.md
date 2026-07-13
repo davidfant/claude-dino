@@ -6,7 +6,7 @@ https://github.com/user-attachments/assets/8e4a0218-0803-47fe-889e-ebdc2a6192b0
 
 ## Requirements
 
-- [Bun](https://bun.sh) — used to run skill tools
+- [Bun](https://bun.sh) — used to build and run the game canvas
 - [tmux](https://github.com/tmux/tmux) — game spawns in a split pane
 
 ## Installation
