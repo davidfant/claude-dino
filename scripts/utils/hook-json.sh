@@ -1,46 +1,46 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-json_get_field() {
-  local field="$1"
-  local input
+HOOK_INPUT=""
 
-  input="$(cat)"
-  HOOK_JSON_INPUT="$input" HOOK_JSON_FIELD="$field" python3 - <<'PY'
+read_hook_input() {
+  HOOK_INPUT="$(python3 -c 'import sys; print(sys.stdin.read(), end="")')"
+}
+
+hook_payload_string() {
+  local field="$1"
+
+  HOOK_JSON_PAYLOAD="$HOOK_INPUT" python3 - "$field" <<'PY'
 import json
 import os
 import sys
 
-try:
-    payload = json.loads(os.environ["HOOK_JSON_INPUT"])
-except json.JSONDecodeError:
-    sys.exit(1)
+field = sys.argv[1]
+payload = json.loads(os.environ["HOOK_JSON_PAYLOAD"])
+value = payload.get(field, "")
 
-value = payload.get(os.environ["HOOK_JSON_FIELD"], "")
-if value is None:
-    value = ""
-
-print(value, end="")
+if isinstance(value, str):
+    print(value)
 PY
 }
 
-json_state() {
+hook_state_json() {
   local status="$1"
   local session_id="$2"
-  shift 2
+  local tool_name="${3:-}"
 
-  python3 - "$status" "$session_id" "$@" <<'PY'
+  python3 - "$status" "$session_id" "$tool_name" <<'PY'
 import json
 import sys
 
-payload = {
+state = {
     "status": sys.argv[1],
     "sessionId": sys.argv[2],
 }
 
-if len(sys.argv) > 3:
-    payload["tool"] = sys.argv[3]
+if sys.argv[3]:
+    state["tool"] = sys.argv[3]
 
-print(json.dumps(payload, separators=(",", ":")))
+print(json.dumps(state, separators=(",", ":")))
 PY
 }
