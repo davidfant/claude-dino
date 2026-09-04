@@ -88,16 +88,7 @@ Edit `canvas/src/game/GameEngine.ts`:
 2. Register in `hooks/hooks.json`:
    ```json
    {
-     "MyHookName": [
-       {
-         "hooks": [
-           {
-             "type": "command",
-             "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/hooks/my-hook.sh\""
-           }
-         ]
-       }
-     ]
+     "MyHookName": "scripts/hooks/my-hook.sh"
    }
    ```
 
