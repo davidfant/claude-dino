@@ -1,30 +1,44 @@
 {
-  "UserPromptSubmit": {
-    "type": "command",
-    "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/hooks/user-prompt.sh\""
-  },
-  "PreToolUse": {
-    "type": "command",
-    "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/hooks/pre-tool-use.sh\""
-  },
-  "PostToolUse": {
-    "type": "command",
-    "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/hooks/post-tool-use.sh\""
-  },
-  "Stop": {
-    "type": "command",
-    "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/hooks/stop.sh\""
-  },
-  "PermissionRequest": {
-    "type": "command",
-    "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/hooks/permission-request.sh\""
-  },
-  "SessionStart": {
-    "type": "command",
-    "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/hooks/session-start.sh\""
-  },
-  "SessionEnd": {
-    "type": "command",
-    "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/hooks/session-end.sh\""
-  }
+  "UserPromptSubmit": [
+    {
+      "type": "command",
+      "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/hooks/user-prompt.sh\""
+    }
+  ],
+  "PreToolUse": [
+    {
+      "type": "command",
+      "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/hooks/pre-tool-use.sh\""
+    }
+  ],
+  "PostToolUse": [
+    {
+      "type": "command",
+      "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/hooks/post-tool-use.sh\""
+    }
+  ],
+  "Stop": [
+    {
+      "type": "command",
+      "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/hooks/stop.sh\""
+    }
+  ],
+  "PermissionRequest": [
+    {
+      "type": "command",
+      "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/hooks/permission-request.sh\""
+    }
+  ],
+  "SessionStart": [
+    {
+      "type": "command",
+      "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/hooks/session-start.sh\""
+    }
+  ],
+  "SessionEnd": [
+    {
+      "type": "command",
+      "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/hooks/session-end.sh\""
+    }
+  ]
 }

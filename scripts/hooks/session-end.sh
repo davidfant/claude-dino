@@ -4,8 +4,8 @@ set -euo pipefail
 PLUGIN_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 source "$PLUGIN_DIR/scripts/utils/hook-json.sh"
 
-INPUT=$(cat)
-SESSION_ID=$(dino_json_field "$INPUT" "session_id")
+read_hook_input
 
-# Optionally clean up the pane
+SESSION_ID="$(hook_payload_string "session_id")"
+
 "$PLUGIN_DIR/scripts/utils/tmux-manager.sh" kill "$SESSION_ID" || true

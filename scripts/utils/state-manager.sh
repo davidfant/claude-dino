@@ -2,8 +2,6 @@
 set -euo pipefail
 
 STATE_DIR="$HOME/.claude/dino-state"
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-source "$SCRIPT_DIR/hook-json.sh"
 
 write_state() {
   local session_id="$1"
@@ -20,9 +18,19 @@ read_state() {
   local session_id="$1"
   
   if [[ -f "$STATE_DIR/$session_id/state.json" ]]; then
-    cat "$STATE_DIR/$session_id/state.json"
+    python3 - "$STATE_DIR/$session_id/state.json" <<'PY'
+from pathlib import Path
+import sys
+
+print(Path(sys.argv[1]).read_text(), end="")
+PY
   else
-    dino_state_json "idle" "$session_id"
+    python3 - "$session_id" <<'PY'
+import json
+import sys
+
+print(json.dumps({"status": "idle", "sessionId": sys.argv[1]}, separators=(",", ":")))
+PY
   fi
 }
 
