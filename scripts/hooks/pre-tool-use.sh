@@ -4,13 +4,10 @@ set -euo pipefail
 PLUGIN_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 source "$PLUGIN_DIR/scripts/utils/hook-json.sh"
 
-INPUT=$(cat)
-SESSION_ID=$(printf '%s' "$INPUT" | hook_json_get session_id)
-TOOL_NAME=$(printf '%s' "$INPUT" | hook_json_get tool_name)
+read_hook_input
 
-if [[ -z "$SESSION_ID" ]]; then
-  exit 0
-fi
+SESSION_ID="$(hook_payload_string "session_id")"
+TOOL_NAME="$(hook_payload_string "tool_name")"
+STATE_JSON="$(hook_state_json "busy" "$SESSION_ID" "$TOOL_NAME")"
 
-STATE_JSON=$(hook_state_json "busy" "$SESSION_ID" "$TOOL_NAME")
 "$PLUGIN_DIR/scripts/utils/state-manager.sh" write "$SESSION_ID" "$STATE_JSON"

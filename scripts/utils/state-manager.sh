@@ -10,7 +10,7 @@ write_state() {
   mkdir -p "$STATE_DIR/$session_id"
   
   # Atomic write using temp file + mv
-  echo "$json" > "$STATE_DIR/$session_id/state.json.tmp"
+  printf '%s\n' "$json" > "$STATE_DIR/$session_id/state.json.tmp"
   mv "$STATE_DIR/$session_id/state.json.tmp" "$STATE_DIR/$session_id/state.json"
 }
 
@@ -18,17 +18,19 @@ read_state() {
   local session_id="$1"
   
   if [[ -f "$STATE_DIR/$session_id/state.json" ]]; then
-    cat "$STATE_DIR/$session_id/state.json"
+    python3 - "$STATE_DIR/$session_id/state.json" <<'PY'
+from pathlib import Path
+import sys
+
+print(Path(sys.argv[1]).read_text(), end="")
+PY
   else
-    python3 -c '
+    python3 - "$session_id" <<'PY'
 import json
 import sys
 
-session_id = sys.argv[1]
-state = {"status": "idle", "sessionId": session_id}
-
-print(json.dumps(state, separators=(",", ":")))
-' "$session_id"
+print(json.dumps({"status": "idle", "sessionId": sys.argv[1]}, separators=(",", ":")))
+PY
   fi
 }
 
