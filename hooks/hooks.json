@@ -1,72 +1,44 @@
 {
   "UserPromptSubmit": [
     {
-      "hooks": [
-        {
-          "type": "command",
-          "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/hooks/user-prompt.sh\""
-        }
-      ]
+      "type": "command",
+      "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/hooks/user-prompt.sh\""
     }
   ],
   "PreToolUse": [
     {
-      "hooks": [
-        {
-          "type": "command",
-          "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/hooks/pre-tool-use.sh\""
-        }
-      ]
+      "type": "command",
+      "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/hooks/pre-tool-use.sh\""
     }
   ],
   "PostToolUse": [
     {
-      "hooks": [
-        {
-          "type": "command",
-          "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/hooks/post-tool-use.sh\""
-        }
-      ]
+      "type": "command",
+      "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/hooks/post-tool-use.sh\""
     }
   ],
   "Stop": [
     {
-      "hooks": [
-        {
-          "type": "command",
-          "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/hooks/stop.sh\""
-        }
-      ]
+      "type": "command",
+      "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/hooks/stop.sh\""
     }
   ],
   "PermissionRequest": [
     {
-      "hooks": [
-        {
-          "type": "command",
-          "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/hooks/permission-request.sh\""
-        }
-      ]
+      "type": "command",
+      "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/hooks/permission-request.sh\""
     }
   ],
   "SessionStart": [
     {
-      "hooks": [
-        {
-          "type": "command",
-          "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/hooks/session-start.sh\""
-        }
-      ]
+      "type": "command",
+      "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/hooks/session-start.sh\""
     }
   ],
   "SessionEnd": [
     {
-      "hooks": [
-        {
-          "type": "command",
-          "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/hooks/session-end.sh\""
-        }
-      ]
+      "type": "command",
+      "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/hooks/session-end.sh\""
     }
   ]
 }
